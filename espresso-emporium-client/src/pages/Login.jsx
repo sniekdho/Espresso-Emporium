@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Contexts/AuthContext";
 import { IoIosEyeOff, IoMdEye } from "react-icons/io";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
-
   const [showEye, setShowEye] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -17,7 +18,28 @@ const Login = () => {
 
     loginUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        const loggedInUserInfo = {
+          email,
+          lastSignInTime: result.user?.metadata?.lastSignInTime,
+        };
+
+        fetch("http://localhost:3000/users", {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(loggedInUserInfo),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "Logged In Successfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/");
+          });
       })
       .catch((error) => {
         console.log(error.message);

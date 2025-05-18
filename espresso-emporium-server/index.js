@@ -67,7 +67,7 @@ async function run() {
       //   },
       // };
 
-      const options = { upset: true };
+      const options = { upsert: true };
 
       const result = await coffeesCollection.updateOne(
         filter,
@@ -122,6 +122,20 @@ async function run() {
         { $set: req.body },
         { upsert: true }
       );
+      res.send(result);
+    });
+
+    app.patch("/users", async (req, res) => {
+      const userInfo = req.body;
+      // const {email, lastSignInTime} = req.body;
+
+      const filter = { email: userInfo.email };
+      const updatedUserDoc = {
+        $set: {
+          lastSignInTime: userInfo.lastSignInTime,
+        },
+      };
+      const result = await usersCollection.updateOne(filter, updatedUserDoc);
       res.send(result);
     });
 
