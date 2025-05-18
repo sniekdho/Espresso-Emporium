@@ -1,1 +1,21 @@
-**/.vscode/
+# Node modules
+**/node_modules/
+
+# Environment variables
+**/.env
+**/.env.local
+
+# Logs
+logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Optional build files
+**/dist/
+**/build/

@@ -19,9 +19,12 @@ const Users = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/users/${_id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://espresso-emporium-server-nu-sooty.vercel.app/users/${_id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount) {
@@ -35,7 +38,7 @@ const Users = () => {
               //   Delete user from firebase
               deletingUser()
                 .then()
-                .catch((error) => console.log(error.message));
+                .catch((error) => alert(error.message));
 
               // update UI
               setUsers(users.filter((user) => user._id !== _id));

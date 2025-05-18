@@ -22,7 +22,6 @@ const Registration = () => {
 
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
         const userProfile = {
           email,
           ...restFormData,
@@ -31,7 +30,7 @@ const Registration = () => {
         };
 
         // Save profile in the DB
-        fetch("http://localhost:3000/users", {
+        fetch("https://espresso-emporium-server-nu-sooty.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -53,7 +52,7 @@ const Registration = () => {
           });
       })
       .catch((error) => {
-        console.log(error.message);
+        alert(error.message);
       });
   };
 

@@ -18,7 +18,8 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => fetch("http://localhost:3000/coffees"),
+        loader: () =>
+          fetch("https://espresso-emporium-server-nu-sooty.vercel.app/coffees"),
         Component: Home,
       },
       // Coffees
@@ -29,25 +30,32 @@ const router = createBrowserRouter([
       {
         path: "/coffeeDetails/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/coffees/${params.id}`),
+          fetch(
+            `https://espresso-emporium-server-nu-sooty.vercel.app/coffees/${params.id}`
+          ),
         Component: CoffeeDetails,
       },
       {
         path: "/updateCoffee/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/coffees/${params.id}`),
+          fetch(
+            `https://espresso-emporium-server-nu-sooty.vercel.app/coffees/${params.id}`
+          ),
         Component: UpdateCoffee,
       },
       // Users
       {
         path: "/users",
-        loader: () => fetch("http://localhost:3000/users"),
+        loader: () =>
+          fetch("https://espresso-emporium-server-nu-sooty.vercel.app/users"),
         Component: Users,
       },
       {
         path: "/updateUser/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/users/${params.id}`),
+          fetch(
+            `https://espresso-emporium-server-nu-sooty.vercel.app/users/${params.id}`
+          ),
         element: (
           <PrivateRouter>
             <UpdateUser></UpdateUser>

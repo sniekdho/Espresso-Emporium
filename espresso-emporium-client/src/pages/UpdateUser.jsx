@@ -7,8 +7,6 @@ const UpdateUser = () => {
   const { user, setUser, updateUser } = useContext(AuthContext);
   const { _id, name, address, phoneNumber, photoUrl, email } = useLoaderData();
 
-  console.log(user);
-
   const handleUpdateUser = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -25,24 +23,26 @@ const UpdateUser = () => {
       if (result.isConfirmed) {
         updateUser({ displayName: updateUserData.name })
           .then(() => {
-            fetch(`http://localhost:3000/users/${_id}`, {
-              method: "PUT",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify(updateUserData),
-            })
+            fetch(
+              `https://espresso-emporium-server-nu-sooty.vercel.app/users/${_id}`,
+              {
+                method: "PUT",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify(updateUserData),
+              }
+            )
               .then((res) => res.json())
               .then((data) => {
                 if (data.matchedCount) {
                   setUser({ ...user, displayName: updateUserData.name });
-                  console.log("User name updated successfully");
                   Swal.fire("Saved!", "", "success");
                 }
               });
           })
           .catch((error) => {
-            console.log(error.message);
+            alert(error.message);
           });
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");

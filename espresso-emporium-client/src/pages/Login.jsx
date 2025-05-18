@@ -23,7 +23,7 @@ const Login = () => {
           lastSignInTime: result.user?.metadata?.lastSignInTime,
         };
 
-        fetch("http://localhost:3000/users", {
+        fetch("https://espresso-emporium-server-nu-sooty.vercel.app/users", {
           method: "PATCH",
           headers: {
             "content-type": "application/json",
@@ -42,7 +42,7 @@ const Login = () => {
           });
       })
       .catch((error) => {
-        console.log(error.message);
+        alert(error.message);
       });
   };
 
